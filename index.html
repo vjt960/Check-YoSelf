@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,800" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CHECK YO' SELF</title>
+</head>
+<body>
+  <header>
+    <h1>CHECK <span id="yo-highlight">YO' </span>SELF</h1>
+    <form id="search-form">
+      <button id="search-btn" type="button"></button>
+      <input id="search-input" type="text" placeholder=" Search">
+    </form>
+  </header>
+  <aside>
+    <form>
+      <legend>ToDo Title</legend>
+      <input id="title-input" type="text">
+      <section id="task-list-section">
+        <input id="unique-id" type="checkbox"><label for="unique-id">Task List Item</label>
+      </section>
+      <legend>Task Item</legend>
+      <input id="task-input" type="text">
+      <button id="add-task-btn" type="button">&#65291;</button>
+      <button id="create-card-btn" class="blue-btn" type="button">Make Task List</button>
+      <button id="clear-btn" class="blue-btn" type="button">Clear All</button>
+    </form>
+    <button id="urgency-filter-btn" class="blue-btn" type="button">Filter by Urgency</button>
+  </aside>
+  <main>
+    <!-- <article>
+      <header class="article-header">Task Title</header>
+      <section>
+        <input id="task-one" type="checkbox"><label for="task-one">Task item listed</label>
+      </section>
+      <footer>
+        <img src="urgent">
+        <img src="delete">
+      </footer>
+    </article> -->
+  </main>
+  <script type="text/javascript" src="todo-list.js"></script>
+  <script type="text/javascript" src="main.js"></script>
+</body>
+</html>
