@@ -15,15 +15,19 @@
     </form>
   </header>
   <aside>
-    <form>
-      <legend>ToDo Title</legend>
-      <input id="title-input" type="text">
+    <form id="task-form">
+      <legend>Task Title</legend>
+      <input class="task-form-input" id="title-input" type="text">
       <section id="task-list-section">
+
         <input id="unique-id" type="checkbox"><label for="unique-id">Task List Item</label>
+
       </section>
       <legend>Task Item</legend>
-      <input id="task-input" type="text">
-      <button id="add-task-btn" type="button">&#65291;</button>
+      <div class="task-form-input" id="task-input-container">
+        <input id="task-input" type="text">
+        <button id="add-task-btn" type="button">&#65291;</button>
+      </div>
       <button id="create-card-btn" class="blue-btn" type="button">Make Task List</button>
       <button id="clear-btn" class="blue-btn" type="button">Clear All</button>
     </form>
