@@ -12,15 +12,19 @@ clearAllBtn.addEventListener('click', clearAll);
 function submitTask(e) {
   e.preventDefault();
   var randId = Date.now();
-  var listItem = `<li id="${randId}" class="aside-list__item"><div class="task-wrap"><img class="delete-btn" src="check-yo-self-icons/delete.svg"><label for="${randId}">${taskItemInput.value}</label></div></li>`;
+  var listItem = `<li id="${randId}"><div class="task-wrap"><img class="delete-btn" src="check-yo-self-icons/delete.svg"><label for="${randId}">${taskItemInput.value}</label></div></li>`;
   var taskItem = {
     key: randId,
     task: taskItemInput.value,
     done: false
   };
-  standbyTasks.push(taskItem);
-  uTaskList.innerHTML += listItem;
-  clearTaskInput();
+  if (taskItemInput.value === '') {
+    alert('You must enter a task item!')
+  } else {
+      standbyTasks.push(taskItem);
+      uTaskList.innerHTML += listItem;
+      clearTaskInput();
+    }
 }
 
 function clearAll() {
@@ -36,10 +40,10 @@ function clearTaskInput() {
 function removeTask(e) {
   if (e.target.className === 'delete-btn') {
     for (var i = 0; i < standbyTasks.length; i++) {
-      if (standbyTasks[i].key === parseInt(e.target.parentNode.id)) {
+      if (standbyTasks[i].key === parseInt(e.target.parentNode.parentNode.id)) {
         standbyTasks.splice(i, 1);
       }
     }
-    e.target.parentNode.parentNode.removeChild(e.target.parentNode);
+    e.target.closest('li').remove();
   }
 }
