@@ -34,7 +34,7 @@ header {
   grid-area: header;
 }
 
-#yo-highlight {
+.highlight--yo {
   color: #fec40e;
 }
 
@@ -44,7 +44,7 @@ h1 {
   font-size: 30px;
 }
 
-#search-form {
+.search-form {
   height: 55%;
   width: 30%;
   float: right;
@@ -55,13 +55,12 @@ h1 {
   flex-direction: row;
 }
 
-#search-input,
-#search-btn {
+.search-form__inner {
   height: 95%;
   width: 100%;
 }
 
-#search-btn {
+.search__btn {
   width: 15%;
   background-color: #C7D3D8;
 }
@@ -82,7 +81,7 @@ aside {
   border-right: 2px solid #3d6477;
 }
 
-#task-form {
+.task-form {
   width: 100%;
   height: 43%;
   display: flex;
@@ -96,19 +95,19 @@ legend {
   font-size: 15px;
 }
 
-.task-form-input {
+.task-form__input {
   margin: 0 0 15px 0;
   height: 30px;
   display: flex;
 }
 
-#task-input {
+.task-form__inner-input {
   height: 100%;
   width: 85%;
   border: 0;
 }
 
-#add-task-btn {
+.task-form__inner-btn {
   height: 100%;
   width: 15%;
   background-color: #1f1f3d;
@@ -116,7 +115,7 @@ legend {
 
 }
 
-.blue-btn {
+.task-form__btn {
   background-color: #1f1f3d;
   color: #fff;
   height: 35px;
@@ -125,8 +124,12 @@ legend {
 
 }
 
-#urgency-filter-btn {
+.task-form__urgency--btn {
   width: 95%;
+}
+
+ul {
+  list-style-type: none;
 }
 
 /*Main*/
