@@ -14,9 +14,6 @@ body {
 
 button {
   border: 0;
-}
-
-button:hover {
   cursor: pointer;
 }
 
@@ -63,6 +60,12 @@ h1 {
 .search__btn {
   width: 15%;
   background-color: #C7D3D8;
+}
+
+.search__btn--img {
+  height: 75%;
+  width: 75%;
+  margin: 5px 0;
 }
 
 /*Aside*/
