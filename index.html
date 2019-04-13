@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <link rel="stylesheet" type="text/css" href="style.css">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,800" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CHECK YO' SELF</title>
 </head>
@@ -20,7 +20,7 @@
       <legend>Task Title</legend>
       <input class="task-form__input" id="title-input" type="text">
       <section id="task__section">
-        <ul>
+        <ul class="task__section-ul">
         </ul>
       </section>
       <legend>Task Item</legend>
@@ -34,16 +34,30 @@
     <button id="urgency-filter-btn" class="task-form__urgency--btn task-form__btn" type="button">Filter by Urgency</button>
   </aside>
   <main>
-    <!-- <article>
-      <header class="article-header">Task Title</header>
-      <section>
-        <input id="task-one" type="checkbox"><label for="task-one">Task item listed</label>
+    <article class="card">
+      <header class="card-header">Task Title</header>
+      <section class="card-body">
+        <ul class="card-body__ul">
+          <li class="card__ul-li">
+            <input class="checkbox" id="task-one" type="checkbox"><label for="task-one">Task item listed</label>
+          </li>
+        </ul>
       </section>
-      <footer>
-        <img src="urgent">
-        <img src="delete">
+      <footer class="card-footer">
+        <div class="card-footer__img--wrap">
+          <img class="card-footer__img" src="check-yo-self-icons/urgent.svg">
+          <p class="card-footer__img--text">
+            URGENT
+          </p>
+        </div>
+        <div class="card-footer__img--wrap">
+          <img class="card-footer__img" src="check-yo-self-icons/delete.svg">
+          <p class="card-footer__img--text">
+            DELETE
+          </p>
+        </div>
       </footer>
-    </article> -->
+    </article>
   </main>
   <script type="text/javascript" src="todo-list.js"></script>
   <script type="text/javascript" src="main.js"></script>

@@ -10,9 +10,9 @@ taskForm.addEventListener('click', removeTask);
 clearAllBtn.addEventListener('click', clearAll);
 
 function submitTask(e) {
-  var randId = Date.now();
-  var listItem = `<li id="${randId}" class="list__item"><div class="task-wrap"><img class="delete-btn" src="check-yo-self-icons/delete.svg"><label for="${randId}">${taskItemInput.value}</label></div></li>`;
   e.preventDefault();
+  var randId = Date.now();
+  var listItem = `<li id="${randId}" class="aside-list__item"><div class="task-wrap"><img class="delete-btn" src="check-yo-self-icons/delete.svg"><label for="${randId}">${taskItemInput.value}</label></div></li>`;
   var taskItem = {
     key: randId,
     task: taskItemInput.value,
