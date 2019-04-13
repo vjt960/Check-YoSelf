@@ -8,30 +8,32 @@
 </head>
 <body>
   <header>
-    <h1>CHECK <span id="yo-highlight">YO' </span>SELF</h1>
-    <form id="search-form">
-      <button id="search-btn" type="button"></button>
-      <input id="search-input" type="text" placeholder=" Search">
+    <h1>CHECK <span class="highlight highlight--yo">YO' </span>SELF</h1>
+    <form class="search-form">
+      <button class="search-form__inner search__btn" type="button"></button>
+      <input class="search-form__inner search__input" type="text" placeholder=" Search">
     </form>
   </header>
   <aside>
-    <form id="task-form">
+    <form class="task-form">
       <legend>Task Title</legend>
-      <input class="task-form-input" id="title-input" type="text">
-      <section id="task-list-section">
-
-        <input id="unique-id" type="checkbox"><label for="unique-id">Task List Item</label>
-
+      <input class="task-form__input" id="title-input" type="text">
+      <section id="task__section">
+        <ul>
+          <li class="list__item">
+            <input id="unique-id" type="checkbox"><label for="unique-id">Task List Item</label>
+          </li>
+        </ul>
       </section>
       <legend>Task Item</legend>
-      <div class="task-form-input" id="task-input-container">
-        <input id="task-input" type="text">
-        <button id="add-task-btn" type="button">&#65291;</button>
+      <div class="task-form__input" id="task-form__input--container">
+        <input class="task-form__inner-input" type="text">
+        <button class="task-form__inner-btn" type="button">&#65291;</button>
       </div>
-      <button id="create-card-btn" class="blue-btn" type="button">Make Task List</button>
-      <button id="clear-btn" class="blue-btn" type="button">Clear All</button>
+      <button id="create-card-btn" class="task-form__btn" type="button">Make Task List</button>
+      <button id="clear-btn" class="task-form__btn" type="button">Clear All</button>
     </form>
-    <button id="urgency-filter-btn" class="blue-btn" type="button">Filter by Urgency</button>
+    <button id="urgency-filter-btn" class="task-form__urgency--btn task-form__btn" type="button">Filter by Urgency</button>
   </aside>
   <main>
     <!-- <article>
