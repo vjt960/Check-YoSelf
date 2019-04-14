@@ -22,7 +22,7 @@ mainElement.addEventListener('click', deleteTaskCard);
 
 function submitTaskItem(e) {
   e.preventDefault();
-  var randId = Date.now();
+  var randId = document.querySelectorAll('.list-item').length;
   var listItem = `<li class="list-item" id="${randId}"><div class="task-wrap"><img class="delete-btn" src="check-yo-self-icons/delete.svg"><label for="${randId}">${taskItemInput.value}</label></div></li>`;
   if (taskItemInput.value === '') {
     alert('You must enter a task item!')
@@ -45,11 +45,15 @@ function createTask() {
     alert('You must have a Title and at least one Task Item on your list!');
   } else {
     for (var i = 0; i < stbyTasks.length; i++) {
+      var randId = Date.now();
+      var key = i;
       var taskItem = {
+        id: key,
         task: document.querySelectorAll('.list-item')[i].childNodes[0].childNodes[1].childNodes[0].data,
         urgent: false
       }
       standbyTasks.push(taskItem);
+      console.log(standbyTasks);
     }
     var taskCard = new ToDoList(Date.now(), taskTitleInput.value, standbyTasks);
     taskCards.push(taskCard);
@@ -103,7 +107,7 @@ function injectTaskItem(obj) {
   var dataIdKey = `[data-id = "${obj.id}"]`;
   var targetCard = document.querySelector(dataIdKey);
   obj.tasks.reverse().forEach(function(e) {
-      targetCard.childNodes[3].childNodes[1].insertAdjacentHTML('afterbegin', `<li><input class="checkbox" id="${obj.id}" type="checkbox"><label for="${obj.id}">${e.task}</label></li>`);
+      targetCard.childNodes[3].childNodes[1].insertAdjacentHTML('afterbegin', `<li><input class="checkbox" id="${obj.tasks.indexOf(e)}" type="checkbox"><label for="${obj.tasks.indexOf(e)}">${e.task}</label></li>`);
     })
 }
 
@@ -111,7 +115,7 @@ function loadTaskItem(obj) {
   var dataIdKey = `[data-id = "${obj.id}"]`;
   var targetCard = document.querySelector(dataIdKey);
   obj.tasks.forEach(function(e) {
-      targetCard.childNodes[3].childNodes[1].insertAdjacentHTML('afterbegin', `<li><input class="checkbox" id="${obj.id}" type="checkbox"><label for="${obj.id}">${e.task}</label></li>`);
+      targetCard.childNodes[3].childNodes[1].insertAdjacentHTML('afterbegin', `<li><input class="checkbox" id="${obj.tasks.indexOf(e)}" type="checkbox"><label for="${obj.tasks.indexOf(e)}">${e.task}</label></li>`);
     })
 }
 
