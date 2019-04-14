@@ -6,7 +6,8 @@ class ToDoList {
     this.urgent = urgent || false;
   }
   saveToStorage() {
-    return 'saved to local';
+    var stringifyTasks = JSON.stringify(taskCards);
+    localStorage.setItem('taskCards', stringifyTasks);
   }
 
   deleteFromStorage() {

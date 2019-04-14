@@ -58,8 +58,15 @@ function createTask() {
   } else {
     var taskCard = new ToDoList(Date.now(), taskTitleInput.value, standbyTasks);
     taskCards.push(taskCard);
-    mainElement.insertAdjacentHTML('afterbegin', `<article class="card" data-id="${taskCard.id}">
-      <header class="card-header">${taskCard.title}</header>
+    injectTask(taskCard);
+    console.log(taskCards);
+  }
+}
+
+
+function injectTask(obj) {
+  mainElement.insertAdjacentHTML('afterbegin', `<article class="card" data-id="${obj.id}">
+      <header class="card-header">${obj.title}</header>
       <section class="card-body">
         <ul class="card-body__ul">
         </ul>
@@ -79,14 +86,26 @@ function createTask() {
         </div>
       </footer>
     </article>` );
-    var dataIdKey = `[data-id = "${taskCard.id}"]`;
+    var dataIdKey = `[data-id = "${obj.id}"]`;
     var targetCard = document.querySelector(dataIdKey);
     standbyTasks.reverse().forEach(function(e) {
-      targetCard.childNodes[3].childNodes[1].insertAdjacentHTML('afterbegin', `<li><input class="checkbox" id="${taskCard.id}" type="checkbox"><label for="${taskCard.id}">${e.task}</label></li>`);
+      targetCard.childNodes[3].childNodes[1].insertAdjacentHTML('afterbegin', `<li><input class="checkbox" id="${obj.id}" type="checkbox"><label for="${obj.id}">${e.task}</label></li>`);
     })
-    console.log(taskCards);
-  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function targetIndex(e) {
   var targetedCard = e.target.closest(".card");
