@@ -8,6 +8,7 @@ const mainElement = document.querySelector('main');
 const standbyTasks = [];
 const taskCards = [];
 
+window.addEventListener('load', pageLoad);
 taskForm.addEventListener('submit', submitTask);
 taskForm.addEventListener('click', removeTask);
 makeTaskBtn.addEventListener('click', createTask)
@@ -59,7 +60,8 @@ function createTask() {
     var taskCard = new ToDoList(Date.now(), taskTitleInput.value, standbyTasks);
     taskCards.push(taskCard);
     injectTask(taskCard);
-    console.log(taskCards);
+    injectTaskItem(taskCard);
+    taskCard.saveToStorage();
   }
 }
 
@@ -86,16 +88,42 @@ function injectTask(obj) {
         </div>
       </footer>
     </article>` );
-    var dataIdKey = `[data-id = "${obj.id}"]`;
-    var targetCard = document.querySelector(dataIdKey);
-    standbyTasks.reverse().forEach(function(e) {
+    // var dataIdKey = `[data-id = "${obj.id}"]`;
+    // var targetCard = document.querySelector(dataIdKey);
+    // obj.tasks.forEach(function(e) {
+    //   targetCard.childNodes[3].childNodes[1].insertAdjacentHTML('afterbegin', `<li><input class="checkbox" id="${obj.id}" type="checkbox"><label for="${obj.id}">${e.task}</label></li>`);
+    // })
+}
+
+function injectTaskItem(obj) {
+  var dataIdKey = `[data-id = "${obj.id}"]`;
+  var targetCard = document.querySelector(dataIdKey);
+  obj.tasks.reverse().forEach(function(e) {
+      targetCard.childNodes[3].childNodes[1].insertAdjacentHTML('afterbegin', `<li><input class="checkbox" id="${obj.id}" type="checkbox"><label for="${obj.id}">${e.task}</label></li>`);
+    })
+}
+
+function loadTaskItem(obj) {
+  var dataIdKey = `[data-id = "${obj.id}"]`;
+  var targetCard = document.querySelector(dataIdKey);
+  obj.tasks.forEach(function(e) {
       targetCard.childNodes[3].childNodes[1].insertAdjacentHTML('afterbegin', `<li><input class="checkbox" id="${obj.id}" type="checkbox"><label for="${obj.id}">${e.task}</label></li>`);
     })
 }
 
 
 
-
+function pageLoad(e) {
+  var getTasks = localStorage.getItem('taskCards');
+  var parsedTasks = JSON.parse(getTasks);
+  for (var i = 0; i < parsedTasks.length; i++) {
+    var task = new ToDoList(parsedTasks[i].id, parsedTasks[i].title, parsedTasks[i].tasks, parsedTasks[i].urgent);
+    injectTask(task);
+    loadTaskItem(task);
+    taskCards.push(task);
+    task.saveToStorage();
+  }
+}
 
 
 
