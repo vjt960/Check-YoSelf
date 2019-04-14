@@ -10,7 +10,7 @@ const taskCards = [];
 window.addEventListener('load', pageLoad);
 taskForm.addEventListener('submit', submitTaskItem);
 taskForm.addEventListener('click', removeTaskItem);
-makeTaskBtn.addEventListener('click', createTaskX)
+makeTaskBtn.addEventListener('click', createTask)
 clearAllBtn.addEventListener('click', clearAll);
 mainElement.addEventListener('click', deleteTaskCard);
 
@@ -38,7 +38,7 @@ function removeTaskItem(e) {
   }
 }
 
-function createTaskX() {
+function createTask() {
   var standbyTasks = [];
   var stbyTasks = document.querySelectorAll('.list-item');
   if  (taskTitleInput.value.length < 1 && stbyTasks.length < 1) {

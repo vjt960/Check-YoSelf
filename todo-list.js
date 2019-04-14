@@ -14,6 +14,10 @@ class ToDoList {
     taskCards.splice(index, 1);
   }
 
+  toggleUrgency() {
+    this.urgent = !this.urgent;
+  }
+
   updateToDo() {
     return 'edited title and urgency';
   }
