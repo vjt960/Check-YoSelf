@@ -5,59 +5,80 @@ const uTaskList = document.querySelector('ul');
 const clearAllBtn = document.querySelector('#clear-btn');
 const makeTaskBtn = document.querySelector('#create-card-btn');
 const mainElement = document.querySelector('main');
-const standbyTasks = [];
+// const standbyTasks = [];
 const taskCards = [];
 
 window.addEventListener('load', pageLoad);
-taskForm.addEventListener('submit', submitTask);
-taskForm.addEventListener('click', removeTask);
-makeTaskBtn.addEventListener('click', createTask)
+taskForm.addEventListener('submit', submitTaskItem);
+taskForm.addEventListener('click', removeTaskItem);
+makeTaskBtn.addEventListener('click', createTaskX)
 clearAllBtn.addEventListener('click', clearAll);
 
-function submitTask(e) {
+
+
+
+
+
+
+function submitTaskItem(e) {
   e.preventDefault();
   var randId = Date.now();
-  var listItem = `<li id="${randId}"><div class="task-wrap"><img class="delete-btn" src="check-yo-self-icons/delete.svg"><label for="${randId}">${taskItemInput.value}</label></div></li>`;
-  var taskItem = {
-    key: randId,
-    task: taskItemInput.value,
-    done: false
-  };
+  // var taskItem = {
+  //   key: randId,
+  //   task: taskItemInput.value,
+  //   done: false
+  // };
+  var listItem = `<li class="list-item" id="${randId}"><div class="task-wrap"><img class="delete-btn" src="check-yo-self-icons/delete.svg"><label for="${randId}">${taskItemInput.value}</label></div></li>`;
   if (taskItemInput.value === '') {
     alert('You must enter a task item!')
   } else {
-      standbyTasks.push(taskItem);
+      // standbyTasks.push(taskItem);
       uTaskList.innerHTML += listItem;
       clearTaskInput();
     }
 }
 
-function clearAll() {
-  document.querySelector('.task-form').reset();
-  uTaskList.innerHTML = '';
-  standbyTasks.length = 0;
-}
-
-function clearTaskInput() {
-  taskItemInput.value = '';
-}
-
-function removeTask(e) {
+function removeTaskItem(e) {
   if (e.target.className === 'delete-btn') {
-    for (var i = 0; i < standbyTasks.length; i++) {
-      if (standbyTasks[i].key === parseInt(e.target.parentNode.parentNode.id)) {
-        standbyTasks.splice(i, 1);
-      }
-    }
+    // for (var i = 0; i < standbyTasks.length; i++) {
+    //   if (standbyTasks[i].key === parseInt(e.target.parentNode.parentNode.id)) {
+    //     standbyTasks.splice(i, 1);
+    //   }
+    // }
     e.target.closest('li').remove();
   }
 }
 
-function createTask() {
-  if (taskTitleInput.value.length < 1 && standbyTasks.length < 1) {
-    alert('You must enter a Task Title and create a list of tasks!');
+// function createTask() {
+//   var standbyTasks = [];
+//   var stbyTaskBox = document.querySelectorAll('.list-item');
+//   if (taskTitleInput.value.length < 1 && standbyTasks.length < 1) {
+//     alert('You must enter a Task Title and create a list of tasks!');
+//   } else {
+//     var taskCard = new ToDoList(Date.now(), taskTitleInput.value, standbyTasks);
+//     taskCards.push(taskCard);
+//     injectTask(taskCard);
+//     injectTaskItem(taskCard);
+//     taskCard.saveToStorage();
+//     clearAll();
+//   }
+// }
+
+function createTaskX() {
+  var stbyTasksArr = [];
+  var stbyTasks = document.querySelectorAll('.list-item');
+  if  (taskTitleInput.value.length < 1 && stbyTasks.length < 1) {
+    alert('kek');
   } else {
-    var taskCard = new ToDoList(Date.now(), taskTitleInput.value, standbyTasks);
+    for (var i = 0; i < stbyTasks.length; i++) {
+      var taskItem = {
+        task: document.querySelectorAll('.list-item')[i].childNodes[0].childNodes[1].childNodes[0].data,
+        urgent: false
+      }
+      stbyTasksArr.push(taskItem);
+    }
+    console.log(stbyTasksArr);
+    var taskCard = new ToDoList(Date.now(), taskTitleInput.value, stbyTasksArr);
     taskCards.push(taskCard);
     injectTask(taskCard);
     injectTaskItem(taskCard);
@@ -65,6 +86,21 @@ function createTask() {
     clearAll();
   }
 }
+
+
+
+
+
+function clearAll() {
+  document.querySelector('.task-form').reset();
+  uTaskList.innerHTML = '';
+  // standbyTasks.length = 0;
+}
+
+function clearTaskInput() {
+  taskItemInput.value = '';
+}
+
 
 
 function injectTask(obj) {
@@ -123,16 +159,6 @@ function pageLoad(e) {
   }
   clearAll();
 }
-
-
-
-
-
-
-
-
-
-
 
 function targetIndex(e) {
   var targetedCard = e.target.closest(".card");
