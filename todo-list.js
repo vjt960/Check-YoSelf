@@ -10,8 +10,8 @@ class ToDoList {
     localStorage.setItem('taskCards', stringifyTasks);
   }
 
-  deleteFromStorage() {
-    return 'removed from local';
+  deleteFromStorage(index) {
+    taskCards.splice(index, 1);
   }
 
   updateToDo() {
