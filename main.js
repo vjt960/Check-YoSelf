@@ -81,9 +81,16 @@ function createTask() {
     </article>` );
     var dataIdKey = `[data-id = "${taskCard.id}"]`;
     var targetCard = document.querySelector(dataIdKey);
-     console.log(targetCard.childNodes[3].childNodes[1]);
     standbyTasks.reverse().forEach(function(e) {
       targetCard.childNodes[3].childNodes[1].insertAdjacentHTML('afterbegin', `<li><input class="checkbox" id="${taskCard.id}" type="checkbox"><label for="${taskCard.id}">${e.task}</label></li>`);
     })
+    console.log(taskCards);
   }
+}
+
+function targetIndex(e) {
+  var targetedCard = e.target.closest(".card");
+  var targetedId = parseInt(targetedCard.getAttribute('data-id'))
+  var taskIndex = taskCards.findIndex(obj => obj.id === targetedId)
+  return taskIndex;
 }
