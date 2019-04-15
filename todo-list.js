@@ -4,7 +4,9 @@ class ToDoList {
     this.title = title;
     this.tasks = tasks
     this.urgent = urgent || false;
+    this.done = false;
   }
+
   saveToStorage() {
     var stringifyTasks = JSON.stringify(taskCards);
     localStorage.setItem('taskCards', stringifyTasks);
@@ -16,6 +18,10 @@ class ToDoList {
 
   toggleUrgency() {
     this.urgent = !this.urgent;
+  }
+
+  toggleDone(state) {
+    this.done = state;
   }
 
   updateToDo() {

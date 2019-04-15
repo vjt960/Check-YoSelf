@@ -10,13 +10,20 @@ const taskCards = [];
 window.addEventListener('load', pageLoad);
 taskForm.addEventListener('submit', submitTaskItem);
 taskForm.addEventListener('click', removeTaskItem);
-makeTaskBtn.addEventListener('click', createTask)
+makeTaskBtn.addEventListener('click', stageTasks)
 clearAllBtn.addEventListener('click', clearAll);
 mainElement.addEventListener('click', deleteTaskCard);
+mainElement.addEventListener('click', checkOff)
 
 
-
-
+function checkOff(e) {
+  var ul = document.querySelector('.card-body__ul');
+  for (var i = 0; i < ul.childNodes.length; i++) {
+    if (e.target.parentNode === ul.childNodes[i]) {
+    console.log(taskCards[0].tasks[i]);
+    }
+  }
+}
 
 
 
@@ -38,7 +45,7 @@ function removeTaskItem(e) {
   }
 }
 
-function createTask() {
+function stageTasks() {
   var standbyTasks = [];
   var stbyTasks = document.querySelectorAll('.list-item');
   if  (taskTitleInput.value.length < 1 && stbyTasks.length < 1) {
@@ -46,24 +53,25 @@ function createTask() {
   } else {
     for (var i = 0; i < stbyTasks.length; i++) {
       var randId = Date.now();
-      var key = i;
       var taskItem = {
-        id: key,
+        id: i,
         task: document.querySelectorAll('.list-item')[i].childNodes[0].childNodes[1].childNodes[0].data,
-        urgent: false
+        done: false
       }
       standbyTasks.push(taskItem);
-      console.log(standbyTasks);
     }
-    var taskCard = new ToDoList(Date.now(), taskTitleInput.value, standbyTasks);
+    createTask(standbyTasks);
+  }
+}
+
+function createTask(tasks) {
+  var taskCard = new ToDoList(Date.now(), taskTitleInput.value, tasks);
     taskCards.push(taskCard);
     injectTask(taskCard);
     injectTaskItem(taskCard);
     taskCard.saveToStorage();
     clearAll();
-  }
 }
-
 
 
 
@@ -107,7 +115,10 @@ function injectTaskItem(obj) {
   var dataIdKey = `[data-id = "${obj.id}"]`;
   var targetCard = document.querySelector(dataIdKey);
   obj.tasks.reverse().forEach(function(e) {
-      targetCard.childNodes[3].childNodes[1].insertAdjacentHTML('afterbegin', `<li><input class="checkbox" id="${obj.tasks.indexOf(e)}" type="checkbox"><label for="${obj.tasks.indexOf(e)}">${e.task}</label></li>`);
+      targetCard.childNodes[3].childNodes[1].insertAdjacentHTML('afterbegin', `<li>
+            <img class="checkbox ${obj.tasks.indexOf(e)}" src="check-yo-self-icons/checkbox.svg">
+            <p class="${obj.tasks.indexOf(e)}">${e.task}</p>
+          </li>`);
     })
 }
 
@@ -115,7 +126,10 @@ function loadTaskItem(obj) {
   var dataIdKey = `[data-id = "${obj.id}"]`;
   var targetCard = document.querySelector(dataIdKey);
   obj.tasks.forEach(function(e) {
-      targetCard.childNodes[3].childNodes[1].insertAdjacentHTML('afterbegin', `<li><input class="checkbox" id="${obj.tasks.indexOf(e)}" type="checkbox"><label for="${obj.tasks.indexOf(e)}">${e.task}</label></li>`);
+      targetCard.childNodes[3].childNodes[1].insertAdjacentHTML('afterbegin', `<li>
+            <img class="checkbox ${obj.tasks.indexOf(e)}" src="check-yo-self-icons/checkbox.svg">
+            <p class="${obj.tasks.indexOf(e)}">${e.task}</p>
+          </li>`);
     })
 }
 
