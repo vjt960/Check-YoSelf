@@ -15,7 +15,30 @@ taskForm.addEventListener('click', removeTaskItem);
 taskForm.addEventListener('click', createToDoList)
 clearAllBtn.addEventListener('click', clearAll);
 mainElement.addEventListener('click', deleteTaskCard);
-// mainElement.addEventListener('click', checkOff)
+mainElement.addEventListener('click', checkoffTask);
+
+function checkoffTask(e) {
+  if (!e.target.matches('input')) return;
+  var el = e.target;
+  var i = el.dataset.index;
+  var cardIndex = targetIndex(e);
+  taskCards[cardIndex].tasks[i].done = !taskCards[cardIndex].tasks[i].done;
+  toggleComplete(e);
+  saveLocalCards();
+}
+
+function toggleComplete(e) {
+  var i = targetIndex(e);
+  var counter = 0;
+  taskCards[i].tasks.forEach(function(tsk) {
+    if (tsk.done) counter++;
+  })
+  if (taskCards[i].tasks.length === counter) {
+    taskCards[i].toggleDone(true);
+  } else {
+    taskCards[i].toggleDone(false);
+  }
+}
 
 
 function addTaskItem(e) {
@@ -170,10 +193,13 @@ function saveLocalCards() {
 }
 
 function deleteTaskCard(e) {
-  if (e.target.className === 'card-footer__img') {
-    var i = targetIndex(e);
+  if (e.target.className !== 'card-footer__img') return;
+  var i = targetIndex(e);
+  if (taskCards[i].done) {
     e.target.closest('.card').remove();
     taskCards[i].deleteFromStorage(i);
     saveLocalCards();
+  } else {
+    alert('You must complete each task before you can delete a card!');
   }
 }
