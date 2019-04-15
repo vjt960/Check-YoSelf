@@ -39,7 +39,7 @@ header {
   grid-area: header;
 }
 
-.highlight--yo {
+.h1__span--highlight {
   color: #fec40e;
 }
 
@@ -49,7 +49,7 @@ h1 {
   font-size: 30px;
 }
 
-.search-form {
+.form--search-form {
   height: 55%;
   width: 30%;
   float: right;
@@ -92,7 +92,7 @@ aside {
   border-right: 2px solid #3d6477;
 }
 
-.task-form {
+.form--task-form {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -111,13 +111,13 @@ legend {
   display: flex;
 }
 
-.task-form__inner-input {
+.task-form--inner-input {
   height: 100%;
   width: 85%;
   border: 0;
 }
 
-.task-form__inner-btn {
+.task-form--inner-btn {
   height: 100%;
   width: 15%;
   background-color: #1f1f3d;
@@ -134,7 +134,7 @@ legend {
 
 }
 
-.task-form__urgency--btn {
+.task-form--urgency-btn {
   width: 95%;
 }
 

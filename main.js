@@ -1,6 +1,6 @@
 const taskTitleInput = document.querySelector('#title-input');
-const taskItemInput = document.querySelector('.task-form__inner-input');
-const taskForm = document.querySelector('.task-form');
+const taskItemInput = document.querySelector('.task-form--inner-input');
+const taskForm = document.querySelector('.form--task-form');
 const uTaskList = document.querySelector('ul');
 const clearAllBtn = document.querySelector('#clear-btn');
 const makeTaskBtn = document.querySelector('#create-card-btn');
@@ -34,9 +34,9 @@ function toggleComplete(e) {
     if (tsk.done) counter++;
   })
   if (taskCards[i].tasks.length === counter) {
-    taskCards[i].toggleDone(true);
+    taskCards[i].updateTask(true);
   } else {
-    taskCards[i].toggleDone(false);
+    taskCards[i].updateTask(false);
   }
 }
 
@@ -79,8 +79,9 @@ function populateTaskList(tasksArray, taskList) {
 //   return standbyTasks;
 // }
 
+
 function createToDoList(e) {
-  if (e.target.id === 'create-card-btn') {
+  if ((e.target.id === 'create-card-btn') && (taskTitleInput.value.length > 0) && (standbyTasks.length > 0)) {
     var card = new ToDoList(Date.now(), taskTitleInput.value, standbyTasks);
     taskCards.push(card);
     createCard(card);
@@ -88,6 +89,8 @@ function createToDoList(e) {
     card.saveToStorage();
     clearAll();
     standbyTasks = [];
+  } else if ((e.target.id === 'create-card-btn') && (taskTitleInput.value.length < 1 || standbyTasks.length < 1)) {
+    alert('You must have a Title and a list of Task Items!');
   }
 }
 
