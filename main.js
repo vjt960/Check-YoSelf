@@ -5,89 +5,70 @@ const uTaskList = document.querySelector('ul');
 const clearAllBtn = document.querySelector('#clear-btn');
 const makeTaskBtn = document.querySelector('#create-card-btn');
 const mainElement = document.querySelector('main');
-const taskCards = [];
+const cardTasks = document.querySelector('.card-body__ul');
+var standbyTasks = [];
+var taskCards = [];
 
 window.addEventListener('load', pageLoad);
-taskForm.addEventListener('submit', submitTaskItem);
+taskForm.addEventListener('submit', addTaskItem);
 taskForm.addEventListener('click', removeTaskItem);
-makeTaskBtn.addEventListener('click', stageTasks)
+taskForm.addEventListener('click', createToDoList)
 clearAllBtn.addEventListener('click', clearAll);
 mainElement.addEventListener('click', deleteTaskCard);
-mainElement.addEventListener('click', checkOff)
+// mainElement.addEventListener('click', checkOff)
 
 
-function checkOff(e) {
-  var ul = document.querySelector('.card-body__ul');
-  for (var i = 0; i < ul.childNodes.length; i++) {
-    if (e.target.parentNode === ul.childNodes[i]) {
-    console.log(taskCards[0].tasks[i]);
-    }
-  }
-}
-
-
-
-function submitTaskItem(e) {
+function addTaskItem(e) {
   e.preventDefault();
-  var randId = document.querySelectorAll('.list-item').length;
-  var listItem = `<li class="list-item" id="${randId}"><div class="task-wrap"><img class="delete-btn" src="check-yo-self-icons/delete.svg"><label for="${randId}">${taskItemInput.value}</label></div></li>`;
   if (taskItemInput.value === '') {
-    alert('You must enter a task item!')
+    alert('You must enter a task item!');
   } else {
-      uTaskList.innerHTML += listItem;
-      clearTaskInput();
-    }
-}
-
-function removeTaskItem(e) {
-  if (e.target.className === 'delete-btn') {
-    e.target.closest('li').remove();
+    var taskItem = {
+      text: taskItemInput.value,
+      done: false
+    };
+    standbyTasks.push(taskItem);
+    populateTaskList(standbyTasks, uTaskList)
+    clearTaskInput();
   }
 }
 
-function stageTasks() {
-  var standbyTasks = [];
-  var stbyTasks = document.querySelectorAll('.list-item');
-  if  (taskTitleInput.value.length < 1 && stbyTasks.length < 1) {
-    alert('You must have a Title and at least one Task Item on your list!');
-  } else {
-    for (var i = 0; i < stbyTasks.length; i++) {
-      var randId = Date.now();
-      var taskItem = {
-        id: i,
-        task: document.querySelectorAll('.list-item')[i].childNodes[0].childNodes[1].childNodes[0].data,
-        done: false
-      }
-      standbyTasks.push(taskItem);
-    }
-    createTask(standbyTasks);
-  }
+function populateTaskList(tasksArray, taskList) {
+  uTaskList.innerHTML = tasksArray.map((task, i) => {
+    return `
+    <li>
+    <input class="delete-btn" type="button" data-index=${i} id="task${i}"/>
+    <label class="li__label" for="task${i}">${task.text}</label>
+    </li>`;
+  }).join('');
 }
 
-function createTask(tasks) {
-  var taskCard = new ToDoList(Date.now(), taskTitleInput.value, tasks);
-    taskCards.push(taskCard);
-    injectTask(taskCard);
-    injectTaskItem(taskCard);
-    taskCard.saveToStorage();
+// function stageTaskList() {
+//   var standbyTasks = [];
+//   var listItems = document.querySelectorAll('li__label');
+//   listItems.forEach(function(e) {
+//     var taskItem = {
+//       text: e.textContent,
+//       done: false
+//     };
+//     standbyTasks.push(taskItem);
+//   })
+//   return standbyTasks;
+// }
+
+function createToDoList(e) {
+  if (e.target.id === 'create-card-btn') {
+    var card = new ToDoList(Date.now(), taskTitleInput.value, standbyTasks);
+    taskCards.push(card);
+    createCard(card);
+    injectTaskList(standbyTasks, card);
+    card.saveToStorage();
     clearAll();
+    standbyTasks = [];
+  }
 }
 
-
-
-
-function clearAll() {
-  document.querySelector('.task-form').reset();
-  uTaskList.innerHTML = '';
-}
-
-function clearTaskInput() {
-  taskItemInput.value = '';
-}
-
-
-
-function injectTask(obj) {
+function createCard(obj) {
   mainElement.insertAdjacentHTML('afterbegin', `<article class="card" data-id="${obj.id}">
       <header class="card-header">${obj.title}</header>
       <section class="card-body">
@@ -111,40 +92,66 @@ function injectTask(obj) {
     </article>` );
 }
 
-function injectTaskItem(obj) {
+function injectTaskList(tasksArray, obj) {
   var dataIdKey = `[data-id = "${obj.id}"]`;
   var targetCard = document.querySelector(dataIdKey);
-  obj.tasks.reverse().forEach(function(e) {
-      targetCard.childNodes[3].childNodes[1].insertAdjacentHTML('afterbegin', `<li>
-            <img class="checkbox ${obj.tasks.indexOf(e)}" src="check-yo-self-icons/checkbox.svg">
-            <p class="${obj.tasks.indexOf(e)}">${e.task}</p>
-          </li>`);
-    })
-}
-
-function loadTaskItem(obj) {
-  var dataIdKey = `[data-id = "${obj.id}"]`;
-  var targetCard = document.querySelector(dataIdKey);
-  obj.tasks.forEach(function(e) {
-      targetCard.childNodes[3].childNodes[1].insertAdjacentHTML('afterbegin', `<li>
-            <img class="checkbox ${obj.tasks.indexOf(e)}" src="check-yo-self-icons/checkbox.svg">
-            <p class="${obj.tasks.indexOf(e)}">${e.task}</p>
-          </li>`);
-    })
+  targetCard.childNodes[3].childNodes[1].innerHTML = tasksArray.map((task, i) => {
+    return `
+    <li>
+    <input type="checkbox" data-index=${i} id="task${i}" ${task.done ? 'checked' : ''}/>
+    <label for="task${i}">${task.text}</label>
+    </li>`;
+  }).join('');
 }
 
 
+
+function clearAll() {
+  taskForm.reset();
+  uTaskList.innerHTML = '';
+}
+
+function clearTaskInput() {
+  taskItemInput.value = '';
+}
+
+function removeTaskItem(e) {
+  var taskCounter = document.querySelectorAll('.delete-btn');
+  for (var i = 0; i < taskCounter.length; i++) {
+    if (e.target === taskCounter[i]) {
+      standbyTasks.splice(i, 1);
+    }
+  }
+  if (e.target.className === 'delete-btn') {
+    e.target.closest('li').remove();
+  }
+}
+
+// function pageLoad(e) {
+//   var getCards = localStorage.getItem('taskCards');
+//   var parsedCards = JSON.parse(getCards);
+//   if (parsedCards !== null) {
+//     parsedCards.forEach(function(e) {
+//       var card = new ToDoList(e.id, e.title, e.tasks, e.urgent);
+//       taskCards.push(e);
+//       createCard(e);
+//       injectTaskList(e.tasks, e);
+//       card.saveToStorage();
+//     })
+//   }
+//   clearAll();
+// }
 
 function pageLoad(e) {
-  var getTasks = localStorage.getItem('taskCards');
-  var parsedTasks = JSON.parse(getTasks);
-  if (parsedTasks !== null) {
-    for (var i = 0; i < parsedTasks.length; i++) {
-    var task = new ToDoList(parsedTasks[i].id, parsedTasks[i].title, parsedTasks[i].tasks, parsedTasks[i].urgent);
-    injectTask(task);
-    loadTaskItem(task);
-    taskCards.push(task);
-    task.saveToStorage();
+  var getCards = localStorage.getItem('taskCards');
+  var parsedCards = JSON.parse(getCards);
+  if (parsedCards !== null) {
+    for (var i = 0; i < parsedCards.length; i++) {
+      var card = new ToDoList(parsedCards[i].id, parsedCards[i].title, parsedCards[i].tasks, parsedCards.urgent);
+      taskCards.push(card);
+      createCard(parsedCards[i]);
+      injectTaskList(parsedCards[i].tasks, parsedCards[i]);
+      card.saveToStorage();
     }
   }
   clearAll();

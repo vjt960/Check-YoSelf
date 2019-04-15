@@ -11,7 +11,7 @@ class ToDoList {
     var stringifyTasks = JSON.stringify(taskCards);
     localStorage.setItem('taskCards', stringifyTasks);
   }
-
+  
   deleteFromStorage(index) {
     taskCards.splice(index, 1);
   }
