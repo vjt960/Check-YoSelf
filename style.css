@@ -100,7 +100,7 @@ aside {
   border-bottom: 2px solid #3d6477;
 }
 
-legend {
+.form__label {
   margin: 10px 0 0 0;
   font-size: 15px;
 }
@@ -111,13 +111,13 @@ legend {
   display: flex;
 }
 
-.task-form--inner-input {
+.form__input--stage-task {
   height: 100%;
   width: 85%;
   border: 0;
 }
 
-.task-form--inner-btn {
+.form__button--stage-task {
   height: 100%;
   width: 15%;
   background-color: #1f1f3d;

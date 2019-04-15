@@ -19,16 +19,16 @@
   </header>
   <aside>
     <form class="form form--task-form">
-      <legend>Task Title</legend>
+      <label class="form__label label--task-title" for="title-input">Task Title</label>
       <input class="task-form__input" id="title-input" type="text">
       <section class="task-form__section" id="task__section">
         <ul class="task__section-ul">
         </ul>
       </section>
-      <legend>Task Item</legend>
+      <label class="form__label label--task-item" for="item-input">Task Item</label>
       <div class="task-form__input" id="task-form__input--container">
-        <input class="task-form--inner-input" type="text">
-        <button class="task-form--inner-btn" type="submit">&#65291;</button>
+        <input class="form__input--stage-task" id="item-input" type="text">
+        <button class="form__button--stage-task" type="submit">&#65291;</button>
       </div>
       <button id="create-card-btn" class="task-form__btn" type="button">Make Task List</button>
       <button id="clear-btn" class="task-form__btn" type="button">Clear All</button>

@@ -1,5 +1,5 @@
 const taskTitleInput = document.querySelector('#title-input');
-const taskItemInput = document.querySelector('.task-form--inner-input');
+const taskItemInput = document.querySelector('#item-input');
 const taskForm = document.querySelector('.form--task-form');
 const uTaskList = document.querySelector('ul');
 const clearAllBtn = document.querySelector('#clear-btn');
@@ -27,19 +27,27 @@ function checkoffTask(e) {
   saveLocalCards();
 }
 
+// function toggleComplete(e) {
+//   var i = targetIndex(e);
+//   var counter = 0;
+//   taskCards[i].tasks.forEach(function(tsk) {
+//     if (tsk.done) counter++;
+//   })
+//   if (taskCards[i].tasks.length === counter) {
+//     taskCards[i].updateTask(true);
+//   } else {
+//     taskCards[i].updateTask(false);
+//   }
+// }
+
 function toggleComplete(e) {
   var i = targetIndex(e);
   var counter = 0;
   taskCards[i].tasks.forEach(function(tsk) {
-    if (tsk.done) counter++;
+    tsk.done ? counter++ : counter--;
   })
-  if (taskCards[i].tasks.length === counter) {
-    taskCards[i].updateTask(true);
-  } else {
-    taskCards[i].updateTask(false);
-  }
+  taskCards[i].tasks.length === counter ? taskCards[i].updateTask(true) : taskCards[i].updateTask(false);
 }
-
 
 function addTaskItem(e) {
   e.preventDefault();
@@ -124,8 +132,8 @@ function injectTaskList(tasksArray, obj) {
   targetCard.childNodes[3].childNodes[1].innerHTML = tasksArray.map((task, i) => {
     return `
     <li>
-    <input type="checkbox" data-index=${i} id="task${i}" ${task.done ? 'checked' : ''}/>
-    <label for="task${i}">${task.text}</label>
+    <input class="input${task.done}" type="checkbox" data-index=${i} id="task${i}" ${task.done ? 'checked' : ''}/>
+    <label class="label${task.done}" for="task${i}">${task.text}</label>
     </li>`;
   }).join('');
 }
@@ -153,35 +161,35 @@ function removeTaskItem(e) {
   }
 }
 
-// function pageLoad(e) {
-//   var getCards = localStorage.getItem('taskCards');
-//   var parsedCards = JSON.parse(getCards);
-//   if (parsedCards !== null) {
-//     parsedCards.forEach(function(e) {
-//       var card = new ToDoList(e.id, e.title, e.tasks, e.urgent);
-//       taskCards.push(e);
-//       createCard(e);
-//       injectTaskList(e.tasks, e);
-//       card.saveToStorage();
-//     })
-//   }
-//   clearAll();
-// }
-
 function pageLoad(e) {
   var getCards = localStorage.getItem('taskCards');
   var parsedCards = JSON.parse(getCards);
   if (parsedCards !== null) {
-    for (var i = 0; i < parsedCards.length; i++) {
-      var card = new ToDoList(parsedCards[i].id, parsedCards[i].title, parsedCards[i].tasks, parsedCards.urgent);
-      taskCards.push(card);
-      createCard(parsedCards[i]);
-      injectTaskList(parsedCards[i].tasks, parsedCards[i]);
+    parsedCards.forEach(function(obj) {
+      var card = new ToDoList(obj.id, obj.title, obj.tasks, obj.urgent);
+      taskCards.push(obj);
+      createCard(obj);
+      injectTaskList(obj.tasks, obj);
       card.saveToStorage();
-    }
+    })
   }
   clearAll();
 }
+
+// function pageLoad(e) {
+//   var getCards = localStorage.getItem('taskCards');
+//   var parsedCards = JSON.parse(getCards);
+//   if (parsedCards !== null) {
+//     for (var i = 0; i < parsedCards.length; i++) {
+//       var card = new ToDoList(parsedCards[i].id, parsedCards[i].title, parsedCards[i].tasks, parsedCards.urgent);
+//       taskCards.push(card);
+//       createCard(parsedCards[i]);
+//       injectTaskList(parsedCards[i].tasks, parsedCards[i]);
+//       card.saveToStorage();
+//     }
+//   }
+//   clearAll();
+// }
 
 function targetIndex(e) {
   var targetedCard = e.target.closest(".card");
