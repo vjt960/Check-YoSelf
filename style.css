@@ -81,8 +81,7 @@ h1 {
 aside {
   background-color: #587a8a;
   width: 100%;
-  height: 700px;
-  float: left;
+  height: auto;
   grid-area: aside;
   color: #f4f7f8;
   display: flex;
@@ -171,21 +170,24 @@ li {
 
 main {
   background-color: #f4f7f8;
-  height: 700px;
-  float: right;
+  height: auto;
   width: 100%;
   grid-area: main;
-  padding: 20px;
+  padding: 15px;
+  columns: 2;
+  grid-gap: 20px;
 }
 
 .card {
-  width: 40%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   border: 2px solid #c7d3d8;
   padding: 3px;
   background-color: #F9FDFF;
-  margin: 10px 10px;
+  margin: 0 0 15px 0;
+  break-inside: avoid;
+  overflow: hidden;
 }
 
 .card-header {

@@ -13,7 +13,7 @@ class ToDoList {
   deleteFromStorage(index) {
     taskCards.splice(index, 1);
   }
-  toggleUrgency() {
+  toggleUrgency(e) {
     this.urgent = !this.urgent;
   }
   updateToDo() {
