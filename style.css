@@ -178,7 +178,7 @@ main {
   grid-gap: 20px;
 }
 
-.card {
+.card-false {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -190,7 +190,7 @@ main {
   overflow: hidden;
 }
 
-.card-header {
+.card-header-false {
   background-color: #f9fdff;
   color: #000;
   height: 30px;
@@ -218,7 +218,7 @@ main {
   font-weight: 600;
 }
 
-.card-body {
+.card-body-false {
   min-height: 150px;
   border-bottom: 2px solid #C7D3D8;
   margin: 10px 2px;
@@ -234,3 +234,6 @@ main {
   padding: 0;
 }
 
+.footer-true--text {
+  color: orange;
+}

@@ -80,16 +80,16 @@ function createToDoList(e) {
 }
 
 function createCard(obj) {
-  mainElement.insertAdjacentHTML('afterbegin', `<article class="card" data-id="${obj.id}">
-      <header class="card-header">${obj.title}</header>
-      <section class="card-body">
+  mainElement.insertAdjacentHTML('afterbegin', `<article class="card-${obj.urgent}" data-id="${obj.id}">
+      <header class="card-header-${obj.urgent}">${obj.title}</header>
+      <section class="card-body-${obj.urgent}">
         <ul class="card-body__ul">
         </ul>
       </section>
       <footer class="card-footer">
         <div class="card-footer__img--wrap urgent__img">
           <img class="card-footer__img" src="check-yo-self-icons/urgent.svg">
-          <p class="card-footer__img--text">
+          <p class="footer-${obj.urgent}--text">
             URGENT
           </p>
         </div>
