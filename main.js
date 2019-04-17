@@ -13,6 +13,8 @@ const urgentFilterBtn = document.querySelector('#urgency-filter-btn');
 var greetingText = document.querySelector('.main__h2--greeting');
 var taskCards = [];
 
+//<--------------Event Listers------------------->
+
 window.addEventListener('load', pageLoad);
 taskForm.addEventListener('submit', addTaskItem);
 taskForm.addEventListener('click', removeTaskItem);
@@ -24,6 +26,7 @@ mainElement.addEventListener('click', checkoffTask);
 mainElement.addEventListener('click', toggleUrgent);
 searchBar.addEventListener('keyup', runSearchFilter);
 
+//<----------------------------------------------------->
 
 function targetIndex(e) {
   var targetedCard = e.target.closest(".card");
@@ -32,20 +35,22 @@ function targetIndex(e) {
   return taskIndex;
 }
 
-function greetUser(){
- var elements = document.querySelectorAll('article');
- if(!elements.length){
- greetingText.removeAttribute('hidden', true)
- } else if(elements.length) {
-  greetingText.setAttribute('hidden', true)
- }
+function greetUser() {
+  var elements = document.querySelectorAll('article');
+  if (!elements.length) {
+    greetingText.removeAttribute('hidden', true)
+  } else if (elements.length) {
+    greetingText.setAttribute('hidden', true)
+  }
 };
+
+//<-----------------Task / Card Creation---------------->
 
 function addTaskItem(e) {
   e.preventDefault();
   var taskCounter = document.querySelectorAll('.delete-btn');
   var i = taskCounter.length;
-  uTaskList.insertAdjacentHTML('beforeend', 
+  uTaskList.insertAdjacentHTML('beforeend',
     `<li>
     <input class="delete-btn" type="button" data-index=${i} id="task${i}"/>
     <label class="li__label" for="task${i}">${taskItemInput.value}</label>
@@ -54,16 +59,16 @@ function addTaskItem(e) {
 }
 
 function stageTaskList(e) {
-    var taskCounter = document.querySelectorAll('.delete-btn');
+  var taskCounter = document.querySelectorAll('.delete-btn');
   if ((e.target.className === 'task-form__btn') && (taskTitleInput.value.length > 0) && (taskCounter.length > 0)) {
     var standbyTasks = [];
     var listItems = document.querySelectorAll('.li__label');
     listItems.forEach(function(task) {
       var taskItem = {
-      text: task.textContent,
-      done: false
-    };
-    standbyTasks.push(taskItem);
+        text: task.textContent,
+        done: false
+      };
+      standbyTasks.push(taskItem);
     })
     createToDoList(standbyTasks)
   } else if ((e.target.id === 'create-card-btn') && (taskTitleInput.value.length < 1 || taskCounter.length < 1)) {
@@ -71,16 +76,15 @@ function stageTaskList(e) {
   }
 }
 
-
 function createToDoList(stagedTasks) {
   var taskCounter = document.querySelectorAll('.delete-btn');
-    var card = new ToDoList(Date.now(), taskTitleInput.value, stagedTasks);
-    taskCards.push(card);
-    createCard(card);
-    injectTaskList(stagedTasks, card);
-    card.saveToStorage();
-    greetUser();
-    clearAll();
+  var card = new ToDoList(Date.now(), taskTitleInput.value, stagedTasks);
+  taskCards.push(card);
+  createCard(card);
+  injectTaskList(stagedTasks, card);
+  card.saveToStorage();
+  greetUser();
+  clearAll();
 }
 
 function createCard(obj) {
@@ -119,10 +123,14 @@ function injectTaskList(tasksArray, obj) {
   }).join('');
 }
 
+//<---------------------- Save / Clear / Reload ---------------------------->
 
+function saveLocalCards() {
+  var stringifyTasks = JSON.stringify(taskCards);
+  localStorage.setItem('taskCards', stringifyTasks);
+}
 
 function clearAll() {
-
   taskForm.reset();
   uTaskList.innerHTML = '';
 }
@@ -151,6 +159,8 @@ function pageLoad(e) {
   greetUser();
   clearAll();
 }
+
+//<---------------------- Task Management ------------------------------------------>
 
 function checkoffTask(e) {
   if (!e.target.matches('input')) return;
@@ -193,11 +203,6 @@ function triggerHighlight(e) {
   group.childNodes[5].childNodes[1].childNodes[1].src = `${obj.urgentImg}`;
 }
 
-function saveLocalCards() {
-  var stringifyTasks = JSON.stringify(taskCards);
-  localStorage.setItem('taskCards', stringifyTasks);
-}
-
 function deleteTaskCard(e) {
   if (e.target.id !== 'delete-icon') return;
   var i = targetIndex(e);
@@ -220,6 +225,8 @@ function runSearchFilter(e) {
     targetCard.style.display = obj.title.toLowerCase().includes(searchBar.value.toLowerCase()) ? 'block' : 'none';
   })
 }
+
+//<----------------------- Page Filters --------------------------->
 
 function toggleUrgentFilter() {
   for (var i = 0; i < taskCards.length; i++) {

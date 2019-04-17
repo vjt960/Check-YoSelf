@@ -6,9 +6,9 @@
 
 body {
   display: grid;
-  grid-template-areas: 
-  "header header header" 
-  "aside main main";
+  grid-template-areas:
+    "header header header"
+    "aside main main";
   grid-template-columns: repeat(3, 1fr);
 }
 
@@ -25,18 +25,18 @@ img {
   cursor: pointer;
 }
 
-/*Header*/
+/*------------Header----------------------*/
 
 header {
-  font-family: Open Sans, ExtraBold;
   background-color: #1f1f3d;
   color: #fff;
-  height: 70px;
   display: flex;
-  padding: 0 1% 0 1%;
-  width:100%;
-  justify-content: space-between;
+  font-family: Open Sans, ExtraBold;
   grid-area: header;
+  height: 70px;
+  justify-content: space-between;
+  padding: 0 1% 0 1%;
+  width: 100%;
 }
 
 .h1__span--highlight {
@@ -45,19 +45,19 @@ header {
 
 h1 {
   float: left;
-  margin: auto 0;
   font-size: 30px;
+  margin: auto 0;
 }
 
 .form--search-form {
-  height: 55%;
-  width: 30%;
-  float: right;
-  margin: auto 0;
-  display: flex;
   align-items: center;
-  justify-content: flex-end;
+  display: flex;
   flex-direction: row;
+  float: right;
+  height: 55%;
+  justify-content: flex-end;
+  margin: auto 0;
+  width: 30%;
 }
 
 .search-form__inner {
@@ -66,85 +66,85 @@ h1 {
 }
 
 .search__btn {
-  width: 15%;
   background-color: #C7D3D8;
+  width: 15%;
 }
 
 .search__btn--img {
   height: 75%;
-  width: 75%;
   margin: 5px 0;
+  width: 75%;
 }
 
-/*Aside*/
+/*------------Aside----------------------*/
 
 aside {
+  align-content: flex-start;
   background-color: #587a8a;
-  width: 100%;
-  height: auto;
-  min-height: 1080px;
-  grid-area: aside;
+  border-right: 2px solid #3d6477;
   color: #f4f7f8;
   display: flex;
   flex-wrap: wrap;
+  grid-area: aside;
+  height: auto;
   justify-content: center;
-  align-content: flex-start;
-  border-right: 2px solid #3d6477;
+  min-height: 1080px;
+  width: 100%;
 }
 
 .form--task-form {
-  width: 100%;
+  border-bottom: 2px solid #3d6477;
   display: flex;
   flex-direction: column;
   padding: 0 3% 4% 3%;
-  border-bottom: 2px solid #3d6477;
+  width: 100%;
 }
 
 .form__label {
-  margin: 10px 0 0 0;
   font-size: 15px;
+  margin: 10px 0 0 0;
 }
 
 .delete-btn {
-  background:url(check-yo-self-icons/delete.svg);
   background-repeat: no-repeat;
-  height:20px;
-  width: 20px;
+  background: url(check-yo-self-icons/delete.svg);
   border: 0;
+  height: 20px;
+  width: 20px;
 }
 
 .task-form__input {
-  margin: 0 0 15px 0;
-  height: 30px;
   display: flex;
+  height: 30px;
+  margin: 0 0 15px 0;
 }
 
 .form__input--stage-task {
+  border: 0;
   height: 100%;
   width: 85%;
-  border: 0;
 }
 
 .form__button--stage-task {
-  height: 100%;
-  width: 15%;
   background-color: #1f1f3d;
   color: #fff;
+  height: 100%;
+  width: 15%;
 }
 
 .plus {
   height: 25px;
-  width: 25px;
-  padding: 3px;
   margin: 1px 0 0 0;
+  padding: 3px;
+  width: 25px;
 }
 
 .task-form__btn {
   background-color: #1f1f3d;
   color: #fff;
+  font-size: 15px;
   height: 35px;
   margin: 15px 0 0 0;
-  font-size: 15px;
 }
 
 .task-form--urgency-btn {
@@ -162,91 +162,91 @@ label {
 }
 
 .task-wrap img {
-  height: 20px;
-  width: 20px;
   cursor: pointer;
+  height: 20px;
   margin: 3px 0 0 0;
+  width: 20px;
 }
 
 li {
-  display: flex;
   align-items: center;
+  display: flex;
   margin: 10px 0;
 }
 
 .task-wrap {
-  width: 100%;
-  display: flex;
   align-items: flex-start;
+  display: flex;
+  width: 100%;
 }
 
 .urgentOn {
   background-color: #ef4a23;
 }
 
-/*Main*/
+/*------------Main----------------------*/
 
 main {
   background-color: #f4f7f8;
+  columns: 2;
+  grid-area: main;
+  grid-gap: 20px;
   height: auto;
   min-height: 1080px;
-  width: 100%;
-  grid-area: main;
   padding: 15px;
-  columns: 2;
-  grid-gap: 20px;
+  width: 100%;
 }
 
 .card {
-  width: 100%;
-  display: flex;
-  color: #1f1f3d;
-  flex-direction: column;
-  border: 2px solid #c7d3d8;
-  padding: 3px;
   background-color: #F9FDFF;
-  margin: 0 0 15px 0;
+  border: 2px solid #c7d3d8;
   break-inside: avoid;
+  color: #1f1f3d;
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 15px 0;
   overflow: hidden;
+  padding: 3px;
+  width: 100%;
 }
 
 .card-header {
-  color: inherit;
   background-color: inherit;
-  height: 30px;
   border-bottom: 2px solid #c7d3d8;
+  color: inherit;
   font-weight: 600;
+  height: 30px;
 }
 
 .card-footer__img--wrap {
-  height: 35px;
-  width: 50px;
   font-size: 10px;
+  height: 35px;
   text-align: center;
+  width: 50px;
 }
 
 .card-footer__img {
+  cursor: pointer;
   height: 20px;
   width: 20px;
-  cursor: pointer;
 }
 
 .card-footer {
-  display: flex;
-  justify-content: space-between;
   color: #3c6577;
+  display: flex;
   font-weight: 600;
+  justify-content: space-between;
 }
 
 .list {
-  font-style: normal;
   color: #1f1f3d;
+  font-style: normal;
 }
 
 .card-body {
-  min-height: 150px;
   border-bottom: 2px solid #C7D3D8;
   margin: 10px 2px;
+  min-height: 150px;
 }
 
 .input-false {
@@ -254,32 +254,29 @@ main {
 }
 
 .checkbox {
-  margin: 0 5px 0 10px;
-  height:20px;
-  width:20px;
   display: none;
+  height: 20px;
+  margin: 0 5px 0 10px;
+  width: 20px;
 }
 
 .task-label::before {
-  content: '';
   background-image: url(check-yo-self-icons/checkbox.svg);
-  height: 20px;
-  width:  20px;
-  /*border: none;*/
-  /*background-repeat: no-repeat;*/
+  content: '';
   display: inline-block;
+  height: 20px;
   position: relative;
   right: 5px;
   top: 5px;
+  width: 20px;
 
 }
 
-:checked + .task-label::before {
-  content: '';
+:checked+.task-label::before {
   background-image: url(check-yo-self-icons/checkbox-active.svg);
+  content: '';
   height: 20px;
   width: 20px;
-  /*display: inline-block;*/
 }
 
 .card-body__ul {
@@ -287,8 +284,8 @@ main {
 }
 
 .card-true {
-  border: 2px solid #ffc30c;
   background-color: #ffe89d;
+  border: 2px solid #ffc30c;
 }
 
 .card-header-true,
@@ -297,8 +294,8 @@ main {
 }
 
 .list-true {
-  font-style: italic;
   color: #3c6577;
+  font-style: italic;
 }
 
 
@@ -306,7 +303,7 @@ main {
   color: #b23a25;
 }
 
-
+/*------------Media Query----------------------*/
 
 @media only screen and (max-width: 600px) {
   body {
@@ -314,15 +311,15 @@ main {
   }
 
   header {
-    flex-direction: column;
     align-items: center;
+    flex-direction: column;
     height: 100px;
     padding: 5px 1% 5px 1%;
   }
 
   .form--search-form {
-    width: 95%;
     height: 35%;
+    width: 95%;
   }
 
   h1 {
@@ -337,13 +334,13 @@ main {
     columns: 1;
   }
 
-  h3 {
-    margin: auto 15px;
-  }
-
   .card-header {
+    align-items: flex-start;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+  }
+
+  h3 {
+    margin: auto 15px;
   }
 }
