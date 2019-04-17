@@ -60,7 +60,8 @@ function addTaskItem(e) {
 
 function stageTaskList(e) {
   var taskCounter = document.querySelectorAll('.delete-btn');
-  if ((e.target.className === 'task-form__btn') && (taskTitleInput.value.length > 0) && (taskCounter.length > 0)) {
+  console.log(taskTitleInput.value.length);
+  if (e.target.className === 'task-form__btn' && taskTitleInput.value.length > 0) {
     var standbyTasks = [];
     var listItems = document.querySelectorAll('.li__label');
     listItems.forEach(function(task) {
