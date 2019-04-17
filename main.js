@@ -60,7 +60,6 @@ function addTaskItem(e) {
 
 function stageTaskList(e) {
   var taskCounter = document.querySelectorAll('.delete-btn');
-  console.log(taskTitleInput.value.length);
   if (e.target.className === 'task-form__btn' && taskTitleInput.value.length > 0) {
     var standbyTasks = [];
     var listItems = document.querySelectorAll('.li__label');
@@ -234,7 +233,6 @@ function toggleUrgentFilter() {
     var dataIdKey = `[data-id = "${taskCards[i].id}"]`;
     var targetCard = document.querySelector(dataIdKey);
     if (targetCard.style.display === 'none') {
-      console.log('supposed to displayAll');
       displayAllCards();
       urgentFilterBtn.className = `task-form--urgency-btn task-form__btn`;
       return;
@@ -252,7 +250,6 @@ function displayAllCards() {
   taskCards.map((obj, i) => {
     var dataIdKey = `[data-id = "${obj.id}"]`;
     var targetCard = document.querySelector(dataIdKey);
-    console.log('display all');
     targetCard.style.display = 'block';
   })
 }
