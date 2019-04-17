@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CHECK YO' SELF</title>
+</head>
+<body>
+  <header>
+    <h1>CHECK <span class="h1__span--highlight">YO' </span>SELF</h1>
+    <form class="form form--search-form">
+      <button class="search-form__inner search__btn" type="button">
+        <img class="search__btn--img" src="check-yo-self-icons/search.svg">
+      </button>
+      <input class="search-form__inner search__input" type="text" placeholder=" Search">
+    </form>
+  </header>
+  <aside>
+    <form class="form form--task-form">
+      <label class="form__label label--task-title" for="title-input">Task Title</label>
+      <input class="task-form--textarea task-form__input" id="title-input" type="text">
+      <section class="task-form__section" id="task__section">
+        <ul class="task__section-ul">
+        </ul>
+      </section>
+      <label class="form__label label--task-item" for="item-input">Task Item</label>
+      <div class="task-form__input" id="task-form__input--container">
+        <input class="task-form--textarea form__input--stage-task" id="item-input" type="text">
+        <button id="task-submit-btn" class="form__button--stage-task" type="submit"><img class="plus" src="check-yo-self-icons/symbol-plus.svg"></button>
+      </div>
+      <button id="create-card-btn" class="task-form__btn" type="button">Make Task List</button>
+      <button id="clear-btn" class="task-form__btn" type="button">Clear All</button>
+    </form>
+    <button id="urgency-filter-btn" class="task-form--urgency-btn task-form__btn" type="button">Filter by Urgency</button>
+  </aside>
+  <main>
+    <h2 class="main__h2--greeting">Check Yo' Self! Create To-Do Lists!</h2>
+  </main>
+  <script type="text/javascript" src="todo-list.js"></script>
+  <script type="text/javascript" src="main.js"></script>
+</body>
+</html>
