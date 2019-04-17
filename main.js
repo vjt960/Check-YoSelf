@@ -85,7 +85,7 @@ function createToDoList(stagedTasks) {
 
 function createCard(obj) {
   mainElement.insertAdjacentHTML('afterbegin', `<article class="card card-${obj.urgent}" data-id="${obj.id}">
-      <header class="card-header card-header-${obj.urgent}">${obj.title}</header>
+      <header class="card-header card-header-${obj.urgent}"><h3>${obj.title}</h3></header>
       <section class="card-body card-body-${obj.urgent}">
         <ul class="card-body__ul">
         </ul>

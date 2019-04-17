@@ -130,7 +130,13 @@ aside {
   width: 15%;
   background-color: #1f1f3d;
   color: #fff;
+}
 
+.plus {
+  height: 25px;
+  width: 25px;
+  padding: 3px;
+  margin: 1px 0 0 0;
 }
 
 .task-form__btn {
@@ -139,7 +145,6 @@ aside {
   height: 35px;
   margin: 15px 0 0 0;
   font-size: 15px;
-
 }
 
 .task-form--urgency-btn {
@@ -330,5 +335,15 @@ main {
 
   main {
     columns: 1;
+  }
+
+  h3 {
+    margin: auto 15px;
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
   }
 }
