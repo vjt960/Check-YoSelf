@@ -14,7 +14,6 @@ var taskCards = [];
 window.addEventListener('load', pageLoad);
 taskForm.addEventListener('submit', addTaskItem);
 taskForm.addEventListener('click', removeTaskItem);
-// taskForm.addEventListener('keyup', checkForm);
 taskForm.addEventListener('click', createToDoList)
 clearAllBtn.addEventListener('click', clearAll);
 mainElement.addEventListener('click', deleteTaskCard);
@@ -163,21 +162,9 @@ function checkoffTask(e) {
   var i = el.dataset.index;
   var cardIndex = targetIndex(e);
   taskCards[cardIndex].tasks[i].done = !taskCards[cardIndex].tasks[i].done;
-  // toggleComplete(e);
   crossOut(e);
   saveLocalCards();
 }
-
-// function toggleComplete(e) {
-//   var i = targetIndex(e);
-//   var counter = 0;
-//   console.log(taskCards[i].tasks)
-//   taskCards[i].tasks.forEach(function(tsk) {
-//     tsk.done ? counter++ : counter--;
-//   })
-//   console.log(counter);
-//   taskCards[i].tasks.length === counter ? taskCards[i].updateTask(true) : taskCards[i].updateTask(false);
-// }
 
 function crossOut(e) {
   var i = targetIndex(e);
@@ -228,15 +215,3 @@ function deleteTaskCard(e) {
     alert('You must complete each task before you can delete a card!');
   }
 }
-
-// function checkForm(e) {
-//   console.log('checking form');
-//   var taskCommit = true;
-//   var taskSubmit = true;
-//   taskFormInputs.map((input) => {
-//     taskCommit = input.value.length < 1 ? false : true;
-//   });
-//   taskSubmit = taskItemInput.value.length > 0 ? true : false;
-//   taskSubmitBtn.disabled = taskSubmit ? false : true;
-//   makeTaskBtn.disabled = taskCommit ? false : true;
-// }
