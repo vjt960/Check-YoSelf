@@ -6,16 +6,20 @@ const clearAllBtn = document.querySelector('#clear-btn');
 const makeTaskBtn = document.querySelector('#create-card-btn');
 const mainElement = document.querySelector('main');
 const cardTasks = document.querySelector('.card-body__ul');
+const taskFormInputs = document.querySelectorAll('.task-form--textarea');
+const taskSubmitBtn = document.querySelector('#task-submit-btn');
 var standbyTasks = [];
 var taskCards = [];
 
 window.addEventListener('load', pageLoad);
 taskForm.addEventListener('submit', addTaskItem);
 taskForm.addEventListener('click', removeTaskItem);
+// taskForm.addEventListener('keyup', checkForm);
 taskForm.addEventListener('click', createToDoList)
 clearAllBtn.addEventListener('click', clearAll);
 mainElement.addEventListener('click', deleteTaskCard);
 mainElement.addEventListener('click', checkoffTask);
+mainElement.addEventListener('click', toggleUrgent);
 
 
 function targetIndex(e) {
@@ -75,26 +79,26 @@ function createToDoList(e) {
     clearAll();
     standbyTasks = [];
   } else if ((e.target.id === 'create-card-btn') && (taskTitleInput.value.length < 1 || standbyTasks.length < 1)) {
-    alert('You must have a Title and a list of Task Items!');
+    return;
   }
 }
 
 function createCard(obj) {
-  mainElement.insertAdjacentHTML('afterbegin', `<article class="card-${obj.urgent}" data-id="${obj.id}">
-      <header class="card-header-${obj.urgent}">${obj.title}</header>
-      <section class="card-body-${obj.urgent}">
+  mainElement.insertAdjacentHTML('afterbegin', `<article class="card card-${obj.urgent}" data-id="${obj.id}">
+      <header class="card-header card-header-${obj.urgent}">${obj.title}</header>
+      <section class="card-body card-body-${obj.urgent}">
         <ul class="card-body__ul">
         </ul>
       </section>
       <footer class="card-footer">
         <div class="card-footer__img--wrap urgent__img">
-          <img class="card-footer__img" src="check-yo-self-icons/urgent.svg">
-          <p class="footer-${obj.urgent}--text">
+          <img class="card-footer__img" id="urgent-icon" src="check-yo-self-icons/urgent.svg">
+          <p class="footer--text footer-${obj.urgent}--text">
             URGENT
           </p>
         </div>
         <div class="card-footer__img--wrap delete__img">
-          <img class="card-footer__img" src="check-yo-self-icons/delete.svg">
+          <img class="card-footer__img" id="delete-icon" src="check-yo-self-icons/delete.svg">
           <p class="card-footer__img--text">
             DELETE
           </p>
@@ -108,9 +112,9 @@ function injectTaskList(tasksArray, obj) {
   var targetCard = document.querySelector(dataIdKey);
   targetCard.childNodes[3].childNodes[1].innerHTML = tasksArray.map((task, i) => {
     return `
-    <li>
-    <input class="input${task.done}" type="checkbox" data-index=${i} id="${i}task${Date.now()}" ${task.done ? 'checked' : ''}/>
-    <label class="label${task.done}" for="${i}task${Date.now()}">${task.text}</label>
+    <li class="list list-${task.done}">
+    <input class="input-${task.done}" type="checkbox" data-index=${i} id="${i}task${Date.now()}" ${task.done ? 'checked' : ''}/>
+    <label class="label-${task.done}" for="${i}task${Date.now()}">${task.text}</label>
     </li>`;
   }).join('');
 }
@@ -118,6 +122,7 @@ function injectTaskList(tasksArray, obj) {
 
 
 function clearAll() {
+
   taskForm.reset();
   uTaskList.innerHTML = '';
 }
@@ -138,21 +143,6 @@ function removeTaskItem(e) {
   }
 }
 
-// function pageLoad(e) {
-//   var getCards = localStorage.getItem('taskCards');
-//   var parsedCards = JSON.parse(getCards);
-//   if (parsedCards !== null) {
-//     parsedCards.forEach(function(obj) {
-//       var card = new ToDoList(obj.id, obj.title, obj.tasks, obj.urgent);
-//       taskCards.push(obj);
-//       createCard(obj);
-//       injectTaskList(obj.tasks, obj);
-//       card.saveToStorage();
-//     })
-//   }
-//   clearAll();
-// }
-
 function pageLoad(e) {
   var getCards = localStorage.getItem('taskCards');
   var parsedCards = JSON.parse(getCards);
@@ -162,7 +152,6 @@ function pageLoad(e) {
       taskCards.push(card);
       createCard(card);
       injectTaskList(card.tasks, card);
-      card.saveToStorage();
     }
   }
   clearAll();
@@ -174,23 +163,51 @@ function checkoffTask(e) {
   var i = el.dataset.index;
   var cardIndex = targetIndex(e);
   taskCards[cardIndex].tasks[i].done = !taskCards[cardIndex].tasks[i].done;
-  toggleComplete(e);
+  // toggleComplete(e);
+  crossOut(e);
   saveLocalCards();
 }
 
-function toggleComplete(e) {
+// function toggleComplete(e) {
+//   var i = targetIndex(e);
+//   var counter = 0;
+//   console.log(taskCards[i].tasks)
+//   taskCards[i].tasks.forEach(function(tsk) {
+//     tsk.done ? counter++ : counter--;
+//   })
+//   console.log(counter);
+//   taskCards[i].tasks.length === counter ? taskCards[i].updateTask(true) : taskCards[i].updateTask(false);
+// }
+
+function crossOut(e) {
   var i = targetIndex(e);
-  var counter = 0;
-  taskCards[i].tasks.forEach(function(tsk) {
-    tsk.done ? counter++ : counter--;
+  var taskList = e.target.closest('article').children[1].children[0];
+  console.log(taskList);
+  taskCards[i].tasks.map((task, index) => {
+    if (task.done) {
+      taskList.children[index].className = `list list-${task.done}`;
+    } else {
+        taskList.children[index].className = `list list-${task.done}`;
+      }
   })
-  taskCards[i].tasks.length === counter ? taskCards[i].updateTask(true) : taskCards[i].updateTask(false);
 }
 
 function toggleUrgent(e) {
-  if (e.target.id !== 'card-footer__img') return;
+  if (e.target.id !== 'urgent-icon') return;
   var i = targetIndex(e);
   taskCards[i].toggleUrgency(e);
+  triggerHighlight(e);
+  taskCards[i].saveToStorage();
+}
+
+function triggerHighlight(e) {
+  var i = targetIndex(e);
+  var obj = taskCards[i];
+  var group = e.target.closest('.card');
+  group.className = `card card-${obj.urgent}`;
+  group.childNodes[1].className = `card-header card-header-${obj.urgent}`;
+  group.childNodes[3].className = `card-body card-body-${obj.urgent}`;
+  group.childNodes[5].childNodes[1].childNodes[3].className = `footer--text footer-${obj.urgent}--text`;
 }
 
 function saveLocalCards() {
@@ -199,8 +216,10 @@ function saveLocalCards() {
 }
 
 function deleteTaskCard(e) {
-  if (e.target.className !== 'card-footer__img') return;
   var i = targetIndex(e);
+  if (e.target.id !== 'delete-icon') return;
+  var counter = taskCards[i].tasks.filter(task => task.done);
+  counter.length === taskCards[i].tasks.length ? taskCards[i].updateTask(true) : taskCards[i].updateTask(false);
   if (taskCards[i].done) {
     e.target.closest('.card').remove();
     taskCards[i].deleteFromStorage(i);
@@ -209,3 +228,15 @@ function deleteTaskCard(e) {
     alert('You must complete each task before you can delete a card!');
   }
 }
+
+// function checkForm(e) {
+//   console.log('checking form');
+//   var taskCommit = true;
+//   var taskSubmit = true;
+//   taskFormInputs.map((input) => {
+//     taskCommit = input.value.length < 1 ? false : true;
+//   });
+//   taskSubmit = taskItemInput.value.length > 0 ? true : false;
+//   taskSubmitBtn.disabled = taskSubmit ? false : true;
+//   makeTaskBtn.disabled = taskCommit ? false : true;
+// }

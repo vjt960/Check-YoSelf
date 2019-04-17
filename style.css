@@ -82,6 +82,7 @@ aside {
   background-color: #587a8a;
   width: 100%;
   height: auto;
+  min-height: 1080px;
   grid-area: aside;
   color: #f4f7f8;
   display: flex;
@@ -171,6 +172,7 @@ li {
 main {
   background-color: #f4f7f8;
   height: auto;
+  min-height: 1080px;
   width: 100%;
   grid-area: main;
   padding: 15px;
@@ -178,9 +180,10 @@ main {
   grid-gap: 20px;
 }
 
-.card-false {
+.card {
   width: 100%;
   display: flex;
+  color: #1f1f3d;
   flex-direction: column;
   border: 2px solid #c7d3d8;
   padding: 3px;
@@ -190,9 +193,9 @@ main {
   overflow: hidden;
 }
 
-.card-header-false {
-  background-color: #f9fdff;
-  color: #000;
+.card-header {
+  color: inherit;
+  background-color: inherit;
   height: 30px;
   border-bottom: 2px solid #c7d3d8;
   font-weight: 600;
@@ -218,10 +221,19 @@ main {
   font-weight: 600;
 }
 
-.card-body-false {
+.list {
+  font-style: normal;
+  color: #1f1f3d;
+}
+
+.card-body {
   min-height: 150px;
   border-bottom: 2px solid #C7D3D8;
   margin: 10px 2px;
+}
+
+.input-false {
+  color: inherit;
 }
 
 .checkbox {
@@ -234,6 +246,22 @@ main {
   padding: 0;
 }
 
+.card-true {
+  border: 2px solid #ffc30c;
+  background-color: #ffe89d;
+}
+
+.card-header-true,
+.card-body-true {
+  border-bottom: 2px solid #ffc30c;
+}
+
+.list-true {
+  font-style: italic;
+  color: #3c6577;
+}
+
+
 .footer-true--text {
-  color: orange;
+  color: #b23a25;
 }
