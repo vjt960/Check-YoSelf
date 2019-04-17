@@ -300,3 +300,35 @@ main {
 .footer-true--text {
   color: #b23a25;
 }
+
+
+
+@media only screen and (max-width: 600px) {
+  body {
+    display: block;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: center;
+    height: 100px;
+    padding: 5px 1% 5px 1%;
+  }
+
+  .form--search-form {
+    width: 95%;
+    height: 35%;
+  }
+
+  h1 {
+    font-size: 35px;
+  }
+
+  aside {
+    min-height: 350px;
+  }
+
+  main {
+    columns: 1;
+  }
+}
