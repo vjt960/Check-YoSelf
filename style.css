@@ -13,8 +13,13 @@ body {
 }
 
 button {
-  border: 0;
+  border: none;
   cursor: pointer;
+  outline: none;
+}
+
+input {
+  outline: none;
 }
 
 ul {

@@ -3,11 +3,7 @@ const taskItemInput = document.querySelector('#item-input');
 const taskForm = document.querySelector('.form--task-form');
 const uTaskList = document.querySelector('ul');
 const clearAllBtn = document.querySelector('#clear-btn');
-const makeTaskBtn = document.querySelector('#create-card-btn');
 const mainElement = document.querySelector('main');
-const cardTasks = document.querySelector('.card-body__ul');
-const taskFormInputs = document.querySelectorAll('.task-form--textarea');
-const taskSubmitBtn = document.querySelector('#task-submit-btn');
 const searchBar = document.querySelector('.search__input');
 const urgentFilterBtn = document.querySelector('#urgency-filter-btn');
 var greetingText = document.querySelector('.main__h2--greeting');
@@ -26,7 +22,7 @@ mainElement.addEventListener('click', checkoffTask);
 mainElement.addEventListener('click', toggleUrgent);
 searchBar.addEventListener('keyup', runSearchFilter);
 
-//<----------------------------------------------------->
+//<----------------------- Misc ------------------------------>
 
 function targetIndex(e) {
   var targetedCard = e.target.closest(".card");
@@ -42,12 +38,13 @@ function greetUser() {
   } else if (elements.length) {
     greetingText.setAttribute('hidden', true)
   }
-};
+}
 
 //<-----------------Task / Card Creation---------------->
 
 function addTaskItem(e) {
   e.preventDefault();
+  if (!taskItemInput.value) return;
   var taskCounter = document.querySelectorAll('.delete-btn');
   var i = taskCounter.length;
   uTaskList.insertAdjacentHTML('beforeend',
@@ -59,7 +56,6 @@ function addTaskItem(e) {
 }
 
 function stageTaskList(e) {
-  var taskCounter = document.querySelectorAll('.delete-btn');
   if (e.target.className === 'task-form__btn' && taskTitleInput.value.length > 0) {
     var standbyTasks = [];
     var listItems = document.querySelectorAll('.li__label');
@@ -71,13 +67,10 @@ function stageTaskList(e) {
       standbyTasks.push(taskItem);
     })
     createToDoList(standbyTasks)
-  } else if ((e.target.id === 'create-card-btn') && (taskTitleInput.value.length < 1 || taskCounter.length < 1)) {
-    return;
   }
 }
 
 function createToDoList(stagedTasks) {
-  var taskCounter = document.querySelectorAll('.delete-btn');
   var card = new ToDoList(Date.now(), taskTitleInput.value, stagedTasks);
   taskCards.push(card);
   createCard(card);
@@ -176,11 +169,7 @@ function crossOut(e) {
   var i = targetIndex(e);
   var taskList = e.target.closest('article').children[1].children[0];
   taskCards[i].tasks.map((task, index) => {
-    if (task.done) {
-      taskList.children[index].className = `list list-${task.done}`;
-    } else {
-      taskList.children[index].className = `list list-${task.done}`;
-    }
+    taskList.children[index].className = task.done ? `list list-${task.done}` : `list list-${task.done}`;
   })
 }
 
@@ -207,7 +196,8 @@ function deleteTaskCard(e) {
   if (e.target.id !== 'delete-icon') return;
   var i = targetIndex(e);
   var counter = taskCards[i].tasks.filter(task => task.done);
-  counter.length === taskCards[i].tasks.length ? taskCards[i].updateTask(true) : taskCards[i].updateTask(false);
+  counter.length === taskCards[i].tasks.length ? taskCards[i].updateTask(true) 
+    : taskCards[i].updateTask(false);
   if (taskCards[i].done) {
     e.target.closest('.card').remove();
     taskCards[i].deleteFromStorage(i);
@@ -222,7 +212,8 @@ function runSearchFilter(e) {
   taskCards.map((obj, i) => {
     var dataIdKey = `[data-id = "${obj.id}"]`;
     var targetCard = document.querySelector(dataIdKey);
-    targetCard.style.display = obj.title.toLowerCase().includes(searchBar.value.toLowerCase()) ? 'block' : 'none';
+    targetCard.style.display = obj.title.toLowerCase().includes(searchBar.value.toLowerCase()) ? 'block' 
+      : 'none';
   })
 }
 
@@ -238,7 +229,7 @@ function toggleUrgentFilter() {
       return;
     }
   }
-  taskCards.map((obj, index) => {
+  taskCards.map((obj) => {
     var dataIdKey = `[data-id = "${obj.id}"]`;
     var targetCard = document.querySelector(dataIdKey);
     targetCard.style.display = obj.urgent ? 'block' : 'none';
